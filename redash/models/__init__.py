@@ -264,7 +264,7 @@ class DataSource(BelongsToOrgMixin, db.Model):
 
     @property
     def uses_ssh_tunnel(self):
-        return "ssh_tunnel" in self.options
+        return self.options and "ssh_tunnel" in self.options
 
     @property
     def query_runner(self):
@@ -738,6 +738,7 @@ class Query(ChangeTrackingMixin, TimestampMixin, BelongsToOrgMixin, db.Model):
         queries = Query.query.filter(
             Query.query_hash == query_result.query_hash,
             Query.data_source == query_result.data_source,
+            Query.is_archived.is_(False),
         )
 
         for q in queries:
