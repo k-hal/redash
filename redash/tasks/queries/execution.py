@@ -55,7 +55,7 @@ def enqueue_query(query, data_source, user_id, is_api_key=False, scheduled_query
                     if job_complete:
                         message = "job found is complete (%s)" % status
                     elif job_cancelled:
-                        message = "job found has ben cancelled"
+                        message = "job found has been cancelled"
                 except NoSuchJobError:
                     message = "job found has expired"
                     job_exists = False
@@ -145,7 +145,7 @@ def _resolve_user(user_id, is_api_key, query_id):
         return None
 
 
-class QueryExecutor(object):
+class QueryExecutor:
     def __init__(self, query, data_source_id, user_id, is_api_key, metadata, is_scheduled_query):
         self.job = get_current_job()
         self.query = query
